@@ -1,0 +1,17 @@
+<script type="module">
+  import { defineComponent } from "@/main";
+
+  defineComponent("rq-example", {
+    props: {},
+    store: {},
+    setup(component, props, store) {
+      component
+        .query("button")
+        .on("click", (el, evt) => alert("Button clicked!"));
+    },
+  });
+</script>
+
+<rq-example>
+  <button rq="button">Click me!</button>
+</rq-example>

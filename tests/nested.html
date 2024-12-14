@@ -1,0 +1,123 @@
+<style>
+  rq-select {
+    position: relative;
+    display: inline-block;
+    min-width: 200px;
+  }
+
+  .select-button {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .select-button:hover {
+    border-color: #999;
+  }
+
+  .options-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .option {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    background: #f5f5f5;
+  }
+</style>
+
+<script type="module">
+  import { defineComponent } from "@/main";
+
+  // Child component
+  defineComponent("rq-option", {
+    props: {
+      label: "",
+      value: "",
+    },
+    store: {},
+    setup(component, props, store) {
+      component
+        .query("label")
+        .text(() => props.label)
+        .on("click", (el, evt) => {
+          component.emit("optionSelected", {
+            label: props.label,
+            value: props.value,
+          });
+        });
+    },
+  });
+
+  // Parent component
+  defineComponent("rq-select", {
+    props: {
+      value: "",
+    },
+    store: {
+      isOpen: false,
+      selectedItem: null,
+      options: [
+        { value: "1", label: "Option 1" },
+        { value: "2", label: "Option 2" },
+        { value: "3", label: "Option 3" },
+      ],
+    },
+    setup(component, props, store) {
+      component
+        .query("button")
+        .text(() => {
+          if (store.selectedItem) {
+            return `${store.selectedItem.label} (${store.selectedItem.value})`;
+          }
+          return "Select...";
+        })
+        .on("click", (el, evt) => (store.isOpen = !store.isOpen));
+
+      component.query("options").bind("style", () => ({
+        display: store.isOpen ? "block" : "none",
+      }));
+
+      component.query("option").for(
+        () => store.options,
+        (clone, item) => {
+          clone.bind("prop:key", () => item.value);
+          clone.bind("prop:value", () => item.value);
+          clone.bind("prop:label", () => item.label);
+        }
+      );
+
+      // Listen for option selection
+      component.on("optionSelected", (detail) => {
+        store.selectedItem = detail;
+        store.isOpen = false;
+      });
+    },
+  });
+</script>
+
+<rq-select prop:key="my-select">
+  <div>
+    <button rq="button" class="select-button">Select...</button>
+    <div rq="options" class="options-container">
+      <rq-option rq="option">
+        <div rq="label" class="option"></div>
+      </rq-option>
+    </div>
+  </div>
+</rq-select>

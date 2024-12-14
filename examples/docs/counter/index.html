@@ -1,0 +1,27 @@
+<rq-counter prop:initial-count="0" prop:step="1">
+  <button rq="button">Clicked: <span rq="count">0</span> times</button>
+</rq-counter>
+
+<script type="module">
+  import { defineComponent } from "@/main";
+
+  defineComponent("rq-counter", {
+    props: {
+      initialCount: 0,
+      step: 1,
+    },
+    store: {
+      count: 0,
+    },
+    setup(component, props, store, actions) {
+      // Initialize from props
+      store.count = props.initialCount;
+
+      // Bind UI elements
+      component.query("count").text(() => store.count);
+      component.query("button").on("click", (el, evt) => {
+        store.count += props.step;
+      });
+    },
+  });
+</script>

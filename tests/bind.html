@@ -1,0 +1,42 @@
+<style>
+  #green {
+    color: green;
+  }
+  .red {
+    color: red;
+  }
+  .orange {
+    color: orange;
+  }
+  .static {
+    font-weight: bold;
+  }
+</style>
+
+<script type="module">
+  import { defineComponent } from "../src/main";
+
+  defineComponent("rq-example", {
+    props: {},
+    store: {
+      id: "green",
+      classes: ["foo", { red: true }],
+      style: { color: "blue" },
+    },
+    setup(component, props, store) {
+      component.query("green_label").bind("id", () => store.id);
+      component.query("red_label").bind("class", () => store.classes);
+      component.query("blue_label").bind("style", () => store.style);
+    },
+  });
+</script>
+
+<rq-example>
+  <div rq="green_label">simple binding - this should be green</div>
+  <div rq="red_label" class="static">
+    class binding - this should be red and bold
+  </div>
+  <div rq="blue_label" style="font-weight: bold" :style="style">
+    style binding - this should be blue and bold
+  </div>
+</rq-example>

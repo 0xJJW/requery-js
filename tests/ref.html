@@ -1,0 +1,32 @@
+<script type="module">
+  import { defineComponent, ref } from "@/main";
+
+  const globalCount = ref(10);
+
+  defineComponent("rq-counter", {
+    props: {},
+    store: {},
+    setup(component, props, store) {
+      const count = ref(0);
+
+      component.query("local").text(() => count.value);
+      component.query("global").text(() => globalCount.value);
+      component
+        .query("local-increment")
+        .on("click", (el, evt) => count.value++);
+      component
+        .query("global-increment")
+        .on("click", (el, evt) => globalCount.value++);
+    },
+  });
+</script>
+
+<rq-counter>
+  <div>
+    <div>Local: <span rq="local"></span></div>
+    <button rq="local-increment">increment local</button>
+
+    <div>Global: <span rq="global"></span></div>
+    <button rq="global-increment">increment global</button>
+  </div>
+</rq-counter>

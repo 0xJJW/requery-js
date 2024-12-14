@@ -1,0 +1,36 @@
+{
+  "name": "requery-js",
+  "license": "MIT",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist",
+    "package.json",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/requery.js",
+      "types": "./dist/requery.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "lint": "tsc -p tsconfig.examples.json && tsc",
+    "build": "npm run lint && tsup",
+    "release": "npm run build && changeset publish",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.10",
+    "tsup": "^8.3.5",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.1"
+  },
+  "dependencies": {
+    "@vue/reactivity": "^3.5.13",
+    "@vue/shared": "^3.5.13"
+  }
+}

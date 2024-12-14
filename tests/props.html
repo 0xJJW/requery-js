@@ -1,0 +1,68 @@
+<script type="module">
+  import { defineComponent, watch } from "@/main";
+
+  defineComponent("rq-example", {
+    props: {
+      initialValue: null,
+    },
+    setup(component, props) {
+      component.query("value").text(() => {
+        if (props.initialValue === undefined) {
+          return "undefined";
+        } else if (props.initialValue === null) {
+          return "null";
+        } else {
+          return props.initialValue;
+        }
+      });
+
+      watch(
+        () => props.initialValue,
+        (value) => {
+          console.log("Prop updated:", "initialValue", value);
+        }
+      );
+
+      component.query("undefined-btn").on("click", (el, evt) => {
+        component.setAttribute("prop:initial-value", "undefined");
+      });
+
+      component.query("null-btn").on("click", (el, evt) => {
+        component.setAttribute("prop:initial-value", "null");
+      });
+
+      component.query("array-btn").on("click", (el, evt) => {
+        component.setAttribute("prop:initial-value", "[1,2,3]");
+      });
+
+      component.query("object-btn").on("click", (el, evt) => {
+        component.setAttribute("prop:initial-value", '{"foo":"bar"}');
+      });
+
+      component.query("number-btn").on("click", (el, evt) => {
+        component.setAttribute("prop:initial-value", "42");
+      });
+
+      component.query("boolean-btn").on("click", (el, evt) => {
+        component.setAttribute("prop:initial-value", "true");
+      });
+
+      component.query("string-btn").on("click", (el, evt) => {
+        component.setAttribute("prop:initial-value", "Hello World");
+      });
+    },
+  });
+</script>
+
+<rq-example prop:key="test" prop:initial-value="Initial Value">
+  <pre rq="value"></pre>
+  <div>
+    <button rq="undefined-btn">Set Undefined</button>
+    <button rq="null-btn">Set Null</button>
+    <button rq="array-btn">Set Array</button>
+    <button rq="object-btn">Set Object</button>
+    <button rq="number-btn">Set Number</button>
+    <button rq="boolean-btn">Set Boolean</button>
+    <button rq="string-btn">Set String</button>
+  </div>
+</rq-example>

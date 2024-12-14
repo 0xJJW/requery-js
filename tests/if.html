@@ -1,0 +1,38 @@
+<script type="module">
+  import { defineComponent } from "@/main";
+
+  defineComponent("rq-example", {
+    props: {},
+    store: {
+      open: false,
+      elseOpen: false,
+    },
+    setup(component, props, store) {
+      component
+        .query("button-toggle-if")
+        .on("click", (el, evt) => (store.open = !store.open));
+      component
+        .query("button-toggle-elseif")
+        .on("click", (el, evt) => (store.elseOpen = !store.elseOpen));
+
+      component.query("if-text").if(() => store.open);
+      component.query("else-text").if(() => !store.elseOpen && !store.open);
+      component.query("elseif-text").if(() => store.elseOpen && !store.open);
+    },
+  });
+</script>
+
+<style>
+  [rq-cloak="hidden"] {
+    display: none;
+  }
+</style>
+
+<rq-example>
+  <button rq="button-toggle-if">toggle if</button>
+  <button rq="button-toggle-elseif">toggle else</button>
+
+  <div rq="if-text" rq-cloak="hidden">if</div>
+  <div rq="elseif-text" rq-cloak="hidden">else if</div>
+  <div rq="else-text" rq-cloak="hidden">else</div>
+</rq-example>

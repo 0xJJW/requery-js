@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pokemon Collection (Nested)</title>
+    <script type="module" src="./index.ts"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      [rq-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="p-8 bg-gray-50">
+    <!-- Web Component: Pokemon collection -->
+    <rq-collection prop:key="pokedex" prop:per-page="4">
+      <!-- Pokemon grid -->
+      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <!-- Pokemon item component -->
+        <rq-item
+          rq="item"
+          class="relative bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+        >
+          <img rq="image" alt="Pokemon" class="w-32 h-32 mx-auto mb-4" />
+          <h3
+            rq="title"
+            class="text-lg font-medium text-gray-800 capitalize text-center"
+          ></h3>
+        </rq-item>
+      </div>
+
+      <!-- Load more button -->
+      <div class="text-center">
+        <button
+          rq="btn-load"
+          class="px-6 py-2 bg-white text-gray-600 rounded-lg shadow-sm hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Load More
+          <span rq="btn-load-loader" rq-cloak class="inline-block ml-2"
+            >...</span
+          >
+        </button>
+      </div>
+
+      <!-- Error message -->
+      <div
+        rq="error-message"
+        class="hidden text-red-500 text-center mb-4 p-4 bg-red-50 rounded-lg"
+      ></div>
+    </rq-collection>
+  </body>
+</html>

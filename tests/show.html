@@ -1,0 +1,59 @@
+<script type="module">
+  import { defineComponent } from "@/main";
+
+  defineComponent("rq-example", {
+    props: {},
+    store: {
+      isVisible: true,
+      isFlexVisible: true,
+    },
+    setup(component, props, store) {
+      component
+        .query("toggle-button")
+        .on("click", (el, evt) => (store.isVisible = !store.isVisible));
+
+      component
+        .query("toggle-flex-button")
+        .on("click", (el, evt) => (store.isFlexVisible = !store.isFlexVisible));
+
+      component.query("default-div").show(() => store.isVisible);
+      component.query("flex-div").show(() => store.isFlexVisible);
+    },
+  });
+</script>
+
+<style>
+  .flex-container {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0;
+  }
+  .red-box {
+    background-color: #ffcccc;
+    padding: 10px;
+  }
+  .flex-item {
+    padding: 10px;
+  }
+  .blue-item {
+    background-color: #cce5ff;
+  }
+  .green-item {
+    background-color: #ccffcc;
+  }
+</style>
+
+<rq-example>
+  <div>
+    <button rq="toggle-button">Toggle Default</button>
+    <div rq="default-div" class="red-box">
+      This is a block element with red background
+    </div>
+
+    <button rq="toggle-flex-button">Toggle Flex</button>
+    <div rq="flex-div" class="flex-container">
+      <div class="flex-item blue-item">Blue Flex Item</div>
+      <div class="flex-item green-item">Green Flex Item</div>
+    </div>
+  </div>
+</rq-example>

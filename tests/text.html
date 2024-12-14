@@ -1,0 +1,64 @@
+<script type="module">
+  import { defineComponent } from "@/main";
+
+  defineComponent("rq-example", {
+    props: {},
+    store: {
+      message: "Hello World",
+      count: 0,
+      object: { foo: "bar" },
+      nullValue: null,
+    },
+    setup(component, props, store) {
+      component.query("simple").text(() => store.message);
+      component.query("counter").text(() => store.count);
+      component.query("object").text(() => store.object);
+      component.query("null").text(() => store.nullValue);
+
+      component
+        .query("update-text")
+        .on("click", (el, evt) => (store.message = "Text Updated!"));
+
+      component.query("increment").on("click", (el, evt) => store.count++);
+
+      component
+        .query("update-object")
+        .on("click", (el, evt) => (store.object = { foo: "baz" }));
+
+      component
+        .query("toggle-null")
+        .on(
+          "click",
+          (el, evt) => (store.nullValue = store.nullValue ? null : "Not Null")
+        );
+    },
+  });
+</script>
+
+<rq-example>
+  <div>
+    <div>
+      Simple text:
+      <span rq="simple"></span>
+    </div>
+    <button rq="update-text">Update Text</button>
+
+    <div>
+      Counter:
+      <span rq="counter"></span>
+    </div>
+    <button rq="increment">Increment</button>
+
+    <div>
+      Object:
+      <pre rq="object"></pre>
+    </div>
+    <button rq="update-object">Update Object</button>
+
+    <div>
+      Null handling:
+      <span rq="null"></span>
+    </div>
+    <button rq="toggle-null">Toggle Null</button>
+  </div>
+</rq-example>

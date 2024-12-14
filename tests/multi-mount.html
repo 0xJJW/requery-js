@@ -1,0 +1,46 @@
+<script type="module">
+  import { defineComponent, reactive } from "@/main";
+
+  const globalStore = reactive({
+    count: 10,
+    inc() {
+      this.count++;
+    },
+  });
+
+  defineComponent("rq-counter", {
+    props: {
+      initialCount: 0,
+    },
+    store: {
+      count: 0,
+    },
+    setup(component, props, store) {
+      store.count = props.initialCount;
+      component.query("local").text(() => store.count);
+      component.query("global").text(() => globalStore.count);
+      component.query("increment").on("click", (el, evt) => store.count++);
+      component
+        .query("global-increment")
+        .on("click", (el, evt) => globalStore.count++);
+    },
+  });
+</script>
+
+<rq-counter prop:key="1" prop:count="1">
+  <div>
+    <div>Local count: <span rq="local"></span></div>
+    <div>Global count: <span rq="global"></span></div>
+    <button rq="increment">Increment Local</button>
+    <button rq="global-increment">Increment Global</button>
+  </div>
+</rq-counter>
+
+<rq-counter prop:key="2" prop:count="2">
+  <div>
+    <div>Local count: <span rq="local"></span></div>
+    <div>Global count: <span rq="global"></span></div>
+    <button rq="increment">Increment Local</button>
+    <button rq="global-increment">Increment Global</button>
+  </div>
+</rq-counter>

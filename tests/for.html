@@ -1,0 +1,105 @@
+<script type="module">
+  import { defineComponent } from "@/main";
+
+  let nextId = 4; // Keep track of next available ID for objects
+  let nextNumberId = 4; // Keep track of next available ID for numbers
+
+  defineComponent("rq-example", {
+    props: {},
+    store: {
+      // Complex list with objects
+      list: [
+        { id: 1, text: "bar" },
+        { id: 2, text: "boo" },
+        { id: 3, text: "baz" },
+      ],
+      // Simple number array
+      numbers: [1, 2, 3],
+      add() {
+        this.list.push({ id: nextId++, text: "new item" });
+      },
+      pop() {
+        this.list.pop();
+      },
+      popNumber() {
+        this.numbers.pop();
+      },
+      splice() {
+        this.list.splice(1, 0, { id: nextId++, text: "spliced item" });
+      },
+      spliceNumber() {
+        this.numbers.splice(1, 0, nextNumberId++);
+      },
+      reverse() {
+        this.list = [...this.list.reverse()];
+      },
+      addNumber() {
+        this.numbers.push(nextNumberId++);
+      },
+      reverseNumbers() {
+        this.numbers = [...this.numbers.reverse()];
+      },
+    },
+    setup(component, props, store) {
+      // Complex object list
+      component.query("item").for(
+        () => store.list,
+        (item) => item.id,
+        (clone, data) => {
+          clone.query("content").text(() => `${data.id} ${data.text}`);
+        }
+      );
+
+      // Simple number list
+      component.query("number").for(
+        () => store.numbers,
+        (num) => num,
+        (clone, num) => {
+          clone.query("value").text(() => num);
+        }
+      );
+
+      // Object list buttons
+      component.query("add").on("click", (el, evt) => store.add());
+      component.query("pop").on("click", (el, evt) => store.pop());
+      component.query("splice").on("click", (el, evt) => store.splice());
+      component.query("reverse").on("click", (el, evt) => store.reverse());
+
+      // Number list buttons
+      component.query("add-number").on("click", (el, evt) => store.addNumber());
+      component.query("pop-number").on("click", (el, evt) => store.popNumber());
+      component
+        .query("splice-number")
+        .on("click", (el, evt) => store.spliceNumber());
+      component
+        .query("reverse-number")
+        .on("click", (el, evt) => store.reverseNumbers());
+    },
+  });
+</script>
+
+<rq-example>
+  <div>
+    <h3>Objects:</h3>
+    <button rq="add">Add Item</button>
+    <button rq="reverse">Reverse List</button>
+    <button rq="pop">Remove Last</button>
+    <button rq="splice">Splice</button>
+    <ul>
+      <li rq="item">
+        <span rq="content"></span>
+      </li>
+    </ul>
+
+    <h3>Numbers:</h3>
+    <button rq="add-number">Add Number</button>
+    <button rq="reverse-number">Reverse List</button>
+    <button rq="pop-number">Remove Last</button>
+    <button rq="splice-number">Splice</button>
+    <ul>
+      <li rq="number">
+        <span rq="value"></span>
+      </li>
+    </ul>
+  </div>
+</rq-example>

@@ -1,0 +1,30 @@
+<style>
+  [rq-cloak="invisible"] {
+    opacity: 0;
+  }
+</style>
+
+<script type="module">
+  import { defineComponent } from "@/main";
+
+  defineComponent("rq-example", {
+    props: {},
+    store: {
+      hide: false,
+      msg: "content",
+    },
+    setup(component, props, store) {
+      component.query("message").bind("style", () => ({
+        visibility: store.hide ? "hidden" : "visible",
+      }));
+      component
+        .query("button")
+        .on("click", (el, evt) => (store.hide = !store.hide));
+    },
+  });
+</script>
+
+<rq-example>
+  <div rq="message" rq-cloak="invisible">message</div>
+  <button rq="button">toggle</button>
+</rq-example>

@@ -1,0 +1,61 @@
+<script type="module">
+  import { defineComponent, queryComponent } from "@/main";
+
+  document.getElementById("btn-destroy").addEventListener("click", () => {
+    queryComponent("rq-example").dispose();
+  });
+
+  defineComponent("rq-example", {
+    props: {},
+    store: {
+      show: true,
+    },
+    setup(component, props, store) {
+      // Toggle visibility
+      component.query("toggle").on("click", () => {
+        store.show = !store.show;
+      });
+
+      // Test component mounted/unmounted via if directive
+      component.query("conditional").if(
+        () => store.show,
+        (el) => {
+          // Test element onMounted
+          el.query("mounted-el").onMounted(() => {
+            console.log("Element mounted");
+            el.query("element-status").text(() => "Element Mounted!");
+
+            // Return cleanup function
+            return () => {
+              console.log("Element cleanup");
+            };
+          });
+        }
+      );
+
+      // Log when component is mounted
+      console.log("Component mounted");
+      component.query("component-status").text(() => "Component Mounted!");
+
+      // Return cleanup function for component
+      return () => {
+        console.log("Component cleanup");
+      };
+    },
+  });
+</script>
+
+<rq-example>
+  <div>
+    <button rq="toggle">Toggle Content</button>
+
+    <div>Component Status: <span rq="component-status"></span></div>
+
+    <div rq="conditional">
+      <div>Element Status: <span rq="element-status"></span></div>
+      <div rq="mounted-el">This element has a mounted callback</div>
+    </div>
+  </div>
+</rq-example>
+
+<button id="btn-destroy">Destroy Component</button>

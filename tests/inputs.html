@@ -1,0 +1,123 @@
+<script type="module">
+  import { defineComponent } from "@/main";
+
+  defineComponent("rq-example", {
+    store: {
+      text: "hello",
+      selected: "two",
+      checked: true,
+      arr: ["one"],
+      radioSelected: "two",
+    },
+    setup(component, props, store) {
+      component.query("data").text(() => {
+        return {
+          text: store.text,
+          selected: store.selected,
+          checked: store.checked,
+          arr: store.arr,
+          radioSelected: store.radioSelected,
+        };
+      });
+
+      component
+        .query("text-input")
+        .bind("value", () => store.text)
+        .on("input", (el, evt) => (store.text = evt.target.value));
+
+      component
+        .query("text-area")
+        .bind("value", () => store.text)
+        .on("input", (el, evt) => (store.text = evt.target.value));
+
+      component
+        .query("checkbox")
+        .bind("checked", () => store.checked)
+        .on("change", (el, evt) => (store.checked = evt.target.checked));
+
+      for (const child of ["check-one", "check-two", "check-three"]) {
+        component
+          .query(child)
+          .bind("checked", (element) => store.arr.includes(element.node.value))
+          .on("change", (el, evt) => {
+            if (store.arr.some((val) => val == evt.target.value)) {
+              store.arr = store.arr.filter((val) => val != evt.target.value);
+            } else {
+              store.arr.push(evt.target.value);
+            }
+          });
+      }
+
+      component.query("array").text(() => store.arr);
+
+      for (const child of ["radio-one", "radio-two", "radio-three"]) {
+        component
+          .query(child)
+          .bind(
+            "checked",
+            (element) => store.radioSelected === element.node.value
+          )
+          .on("change", (el, evt) => (store.radioSelected = evt.target.value));
+      }
+
+      component.query("radio-selected").text(() => store.radioSelected);
+
+      component
+        .query("select")
+        .bind("selected", () => store.selected)
+        .on("change", (el, evt) => (store.selected = evt.target.value));
+
+      component.query("option").for(
+        () => ["one", "two", "three"],
+        (item, data) => {
+          item
+            .text(() => data)
+            .bind("value", () => data)
+            .bind("selected", () => {
+              return store.selected === data;
+            });
+        }
+      );
+
+      component.query("selected-option").text(() => store.selected);
+    },
+  });
+</script>
+
+<rq-example>
+  <pre rq="data">{{ $data }}</pre>
+  <h2>Text Input</h2>
+  <input rq="text-input" />
+
+  <h2>TextArea</h2>
+  <textarea rq="text-area"></textarea>
+
+  <h2>Select</h2>
+  <select rq="select">
+    <option rq="option">one</option>
+  </select>
+  <div rq="selected-option"></div>
+
+  <h2>Checkbox</h2>
+  <input rq="checkbox" type="checkbox" id="checkbox" />
+  <label for="checkbox"></label>
+
+  <h2>Checkbox w/ Array</h2>
+  <label><input rq="check-one" type="checkbox" value="one" /> one</label>
+  <label><input rq="check-two" type="checkbox" value="two" /> two</label>
+  <label><input rq="check-three" type="checkbox" value="three" /> three</label>
+  <div rq="array"></div>
+
+  <h2>Radio</h2>
+  <label
+    ><input rq="radio-one" type="radio" value="one" name="radio" /> one</label
+  >
+  <label
+    ><input rq="radio-two" type="radio" value="two" name="radio" /> two</label
+  >
+  <label
+    ><input rq="radio-three" type="radio" value="three" name="radio" />
+    three</label
+  >
+  <div rq="radio-selected"></div>
+</rq-example>

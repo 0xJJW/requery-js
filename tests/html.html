@@ -1,0 +1,17 @@
+<script type="module">
+  import { defineComponent } from "@/main";
+
+  defineComponent("rq-example", {
+    props: {},
+    store: {
+      html: "<span>Hello World</span>",
+    },
+    setup(component, props, store) {
+      component.query("el").html(() => store.html);
+    },
+  });
+</script>
+
+<rq-example>
+  <p rq="el"></p>
+</rq-example>
