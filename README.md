@@ -20,8 +20,23 @@ ReQuery wouldn't exist without the Vue ecosystem. The reactive core is powered b
 
 ## Installation
 
+### NPM
+
 ```bash
 npm install requery-js
+```
+
+### CDN
+
+```html
+<script type="module">
+  import {
+    defineComponent,
+    queryComponent,
+  } from 'https://esm.run/requery-js@0';
+
+  // Your code here
+</script>
 ```
 
 ## Quick Start
