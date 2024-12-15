@@ -18,6 +18,12 @@ Key features:
 
 ReQuery wouldn't exist without the Vue ecosystem. The reactive core is powered by `@vue/reactivity`, and the API design was inspired by Petite Vue. Thank you to Evan You and the Vue team for these incredible tools.
 
+## Installation
+
+```bash
+npm install requery-js
+```
+
 ## Quick Start
 
 ReQuery works by marking interactive elements with the `rq` attribute in your HTML. These elements are then "queried" in your component's setup function where you can bind reactive data and event handlers. This approach keeps your HTML clean and compatible with visual tools, while maintaining full programmatic control in your JavaScript/TypeScript code.
