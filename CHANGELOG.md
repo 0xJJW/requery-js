@@ -1,5 +1,11 @@
 # requery-js
 
+## 0.1.2
+
+### Patch Changes
+
+- d04d911: docs: add cdn installation instructions to README.md
+
 ## 0.1.1
 
 ### Patch Changes
