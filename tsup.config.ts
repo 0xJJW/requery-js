@@ -12,7 +12,7 @@ export default defineConfig({
   },
   dts: {
     entry: {
-      requery: "src/types.ts",
+      requery: "src/main.ts",
     },
   },
 });
