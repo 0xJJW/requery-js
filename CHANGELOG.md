@@ -1,5 +1,11 @@
 # requery-js
 
+## 0.1.3
+
+### Patch Changes
+
+- 2bf8c0c: fix: add missing function declarations to type definitions
+
 ## 0.1.2
 
 ### Patch Changes
