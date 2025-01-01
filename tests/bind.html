@@ -11,6 +11,9 @@
   .static {
     font-weight: bold;
   }
+  .italic {
+    font-style: italic;
+  }
 </style>
 
 <script type="module">
@@ -20,7 +23,7 @@
     props: {},
     store: {
       id: "green",
-      classes: ["foo", { red: true }],
+      classes: ["italic", { red: true }],
       style: { color: "blue" },
     },
     setup(component, props, store) {
@@ -34,7 +37,7 @@
 <rq-example>
   <div rq="green_label">simple binding - this should be green</div>
   <div rq="red_label" class="static">
-    class binding - this should be red and bold
+    class binding - this should be red, bold and italic
   </div>
   <div rq="blue_label" style="font-weight: bold" :style="style">
     style binding - this should be blue and bold
