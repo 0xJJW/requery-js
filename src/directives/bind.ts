@@ -20,6 +20,11 @@ export function _bind<T>(
 ): RqElement {
   let prevValue: T | undefined;
 
+  const el = element.node;
+  if (el && property === "class" && !el._class && el.getAttribute("class")) {
+    el._class = el.getAttribute("class") ?? undefined;
+  }
+
   createDisposableEffect<T>({
     element,
     value,

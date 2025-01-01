@@ -167,7 +167,7 @@ export function defineComponent<
   Props extends object = object,
   Store extends object = object,
   Actions extends RqActions<Props, Store> = RqActions<Props, Store>
->(name: string, options: RqComponentOptions<Props, Store, Actions>) {
+>(name: string, options: RqComponentOptions<Props, Store, Actions>): void {
   const {
     props = {} as Props,
     store = {} as Store,

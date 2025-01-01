@@ -10,9 +10,5 @@ export default defineConfig({
   entry: {
     requery: "src/main.ts",
   },
-  dts: {
-    entry: {
-      requery: "src/main.ts",
-    },
-  },
+  dts: true,
 });
