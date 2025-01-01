@@ -1,5 +1,39 @@
 # requery-js
 
+## 0.1.4
+
+### Patch Changes
+
+- 565a8a5: Export RqActionContext and RqActions types to enable proper typing for component actions:
+
+  ```typescript
+  import type {
+    RqActionContext,
+    RqActions
+  } from 'requery-js'
+
+  interface Props {
+    foo: string;
+  }
+
+  interface Store {
+    bar: string;
+  }
+
+  interface Actions
+    extends RqActions<Props, Store> {
+    log(
+      ctx: RqActionContext<Props, Store>,
+    ): void;
+  }
+
+  defineComponent<Props, Store, Actions>("rq-example", {
+    ...
+  });
+  ```
+
+- e7e6198: Fix class binding to preserve static classes defined in HTML. Previously, binding a dynamic class would overwrite any static classes on the element. Now static classes are preserved and combined with dynamic classes.
+
 ## 0.1.3
 
 ### Patch Changes
