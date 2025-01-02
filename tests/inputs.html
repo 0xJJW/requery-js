@@ -11,13 +11,7 @@
     },
     setup(component, props, store) {
       component.query("data").text(() => {
-        return {
-          text: store.text,
-          selected: store.selected,
-          checked: store.checked,
-          arr: store.arr,
-          radioSelected: store.radioSelected,
-        };
+        return {...store};
       });
 
       component
