@@ -11,12 +11,10 @@
 
       component.query("local").text(() => count.value);
       component.query("global").text(() => globalCount.value);
-      component
-        .query("local-increment")
-        .on("click", (el, evt) => count.value++);
+      component.query("local-increment").on("click", (evt) => count.value++);
       component
         .query("global-increment")
-        .on("click", (el, evt) => globalCount.value++);
+        .on("click", (evt) => globalCount.value++);
     },
   });
 </script>

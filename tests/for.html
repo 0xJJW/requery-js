@@ -60,20 +60,20 @@
       );
 
       // Object list buttons
-      component.query("add").on("click", (el, evt) => store.add());
-      component.query("pop").on("click", (el, evt) => store.pop());
-      component.query("splice").on("click", (el, evt) => store.splice());
-      component.query("reverse").on("click", (el, evt) => store.reverse());
+      component.query("add").on("click", (evt) => store.add());
+      component.query("pop").on("click", (evt) => store.pop());
+      component.query("splice").on("click", (evt) => store.splice());
+      component.query("reverse").on("click", (evt) => store.reverse());
 
       // Number list buttons
-      component.query("add-number").on("click", (el, evt) => store.addNumber());
-      component.query("pop-number").on("click", (el, evt) => store.popNumber());
+      component.query("add-number").on("click", (evt) => store.addNumber());
+      component.query("pop-number").on("click", (evt) => store.popNumber());
       component
         .query("splice-number")
-        .on("click", (el, evt) => store.spliceNumber());
+        .on("click", (evt) => store.spliceNumber());
       component
         .query("reverse-number")
-        .on("click", (el, evt) => store.reverseNumbers());
+        .on("click", (evt) => store.reverseNumbers());
     },
   });
 </script>

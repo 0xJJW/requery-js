@@ -23,8 +23,12 @@ export interface RqComponent<
   onMounted(): Promise<void>;
 }
 
-export interface RqEventListener {
-  (el: RqElement, evt: Event): void;
+export interface RqElementEvent extends Event {
+  element: RqElement;
+}
+
+export interface RqElementEventHandler {
+  (evt: RqElementEvent): void;
 }
 
 export interface RqElement {
@@ -33,7 +37,7 @@ export interface RqElement {
   get parent(): RqElement | null;
   get elements(): Map<string, RqElement>;
   bind: (property: string, value: RqDirectiveCallback<any>) => RqElement;
-  on: (eventName: string, handler: RqEventListener) => RqElement;
+  on: (eventName: string, handler: RqElementEventHandler) => RqElement;
   html: (value: RqDirectiveCallback<string>) => RqElement;
   show: (value: RqDirectiveCallback<boolean>) => RqElement;
   text: (value: RqDirectiveCallback<any>) => RqElement;

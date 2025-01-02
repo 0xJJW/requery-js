@@ -23,31 +23,31 @@
         }
       );
 
-      component.query("undefined-btn").on("click", (el, evt) => {
+      component.query("undefined-btn").on("click", (evt) => {
         component.setAttribute("prop:initial-value", "undefined");
       });
 
-      component.query("null-btn").on("click", (el, evt) => {
+      component.query("null-btn").on("click", (evt) => {
         component.setAttribute("prop:initial-value", "null");
       });
 
-      component.query("array-btn").on("click", (el, evt) => {
+      component.query("array-btn").on("click", (evt) => {
         component.setAttribute("prop:initial-value", "[1,2,3]");
       });
 
-      component.query("object-btn").on("click", (el, evt) => {
+      component.query("object-btn").on("click", (evt) => {
         component.setAttribute("prop:initial-value", '{"foo":"bar"}');
       });
 
-      component.query("number-btn").on("click", (el, evt) => {
+      component.query("number-btn").on("click", (evt) => {
         component.setAttribute("prop:initial-value", "42");
       });
 
-      component.query("boolean-btn").on("click", (el, evt) => {
+      component.query("boolean-btn").on("click", (evt) => {
         component.setAttribute("prop:initial-value", "true");
       });
 
-      component.query("string-btn").on("click", (el, evt) => {
+      component.query("string-btn").on("click", (evt) => {
         component.setAttribute("prop:initial-value", "Hello World");
       });
     },

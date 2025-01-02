@@ -19,7 +19,7 @@
 
       // Bind UI elements
       component.query("count").text(() => store.count);
-      component.query("button").on("click", (el, evt) => {
+      component.query("button").on("click", (evt) => {
         store.count += props.step;
       });
     },

@@ -19,10 +19,10 @@
     setup(component, props, store) {
       component.query("local").text(() => store.localCount);
       component.query("global").text(() => globalStore.count);
-      component.query("local-increment").on("click", (el, evt) => store.inc());
+      component.query("local-increment").on("click", (evt) => store.inc());
       component
         .query("global-increment")
-        .on("click", (el, evt) => globalStore.inc());
+        .on("click", (evt) => globalStore.inc());
     },
   });
 </script>

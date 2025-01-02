@@ -17,19 +17,19 @@
 
       component
         .query("update-text")
-        .on("click", (el, evt) => (store.message = "Text Updated!"));
+        .on("click", (evt) => (store.message = "Text Updated!"));
 
-      component.query("increment").on("click", (el, evt) => store.count++);
+      component.query("increment").on("click", (evt) => store.count++);
 
       component
         .query("update-object")
-        .on("click", (el, evt) => (store.object = { foo: "baz" }));
+        .on("click", (evt) => (store.object = { foo: "baz" }));
 
       component
         .query("toggle-null")
         .on(
           "click",
-          (el, evt) => (store.nullValue = store.nullValue ? null : "Not Null")
+          (evt) => (store.nullValue = store.nullValue ? null : "Not Null")
         );
     },
   });

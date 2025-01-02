@@ -70,7 +70,7 @@ defineComponent("rq-counter", {
 
     // Bind UI elements
     component.query("count").text(() => store.count);
-    component.query("button").on("click", (el, evt) => {
+    component.query("button").on("click", (evt) => {
       store.count += props.step;
     });
   }
@@ -192,7 +192,7 @@ defineComponent<CollectionProps, CollectionStore, CollectionActions>(
           // Setup item bindings
           el.bind("class.ring-2", () => props.selected === item.id)
             .bind("class.ring-blue-500", () => props.selected === item.id)
-            .on("click", (el, evt) => {
+            .on("click", (evt) => {
               props.selected = item.id;
             });
 
@@ -206,7 +206,7 @@ defineComponent<CollectionProps, CollectionStore, CollectionActions>(
       component
         .query("btn-load")
         .bind("disabled", () => store.loading)
-        .on("click", (el, evt) => {
+        .on("click", (evt) => {
           actions.load(store.items.length);
         });
 
@@ -295,7 +295,7 @@ console.log("Actions", postsCollection.actions);
 postsCollection.actions.refresh();
 
 // Register event listeners
-postsCollection.on("itemSelected", (el, evt) => {
+postsCollection.on("itemSelected", (evt) => {
   console.log("itemSelected", evt);
 });
 ```
@@ -390,7 +390,7 @@ defineComponent<CollectionProps, CollectionStore, CollectionActions>(
           el.bind("prop:image", () => item.image);
           el.bind("class.ring-2", () => props.selected === item.id)
             .bind("class.ring-blue-500", () => props.selected === item.id)
-            .on("click", (el, evt) => {
+            .on("click", (evt) => {
               props.selected = item.id;
             });
         }
@@ -420,7 +420,7 @@ defineComponent("rq-item", {
     component.query("title").text(() => props.name);
     component.query("image").bind("src", () => props.image);
 
-    component.query("btn-favorite").on("click", (el, evt) => {
+    component.query("btn-favorite").on("click", (evt) => {
       // Prevent default behavior
       evt.preventDefault();
       evt.stopPropagation();
@@ -540,7 +540,7 @@ Registers event listeners on the element.
 #### Example
 
 ```javascript
-component.query("btn-increment").on("click", (el, evt) => {
+component.query("btn-increment").on("click", (evt) => {
   store.count++;
 });
 ```
@@ -757,7 +757,7 @@ component
   .query("btn-increment")
   .text(() => `Clicked ${store.count} times`)
   .bind("disabled", () => store.count >= 5)
-  .on("click", (el, evt) => {
+  .on("click", (evt) => {
     store.count++;
   });
 ```
