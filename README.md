@@ -6,6 +6,15 @@ A Web Component framework that works with plain HTML - no JSX, string literals, 
 
 Please follow the documentation at [docs.requery.dev](https://docs.requery.dev)!
 
+## Status
+
+requery-js is pre-1.0, which means:
+- The API may change before reaching 1.0
+- Breaking changes will be released as minor versions
+- You should pin your dependency version
+
+Despite being pre-1.0, the framework is fully functional. Check out the docs, examples and tests to see what it can do.
+
 ## Sponsorship
 
 requery-js is an MIT-licensed open source project. If you find it useful, please consider:
