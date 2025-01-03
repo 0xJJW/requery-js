@@ -111,7 +111,7 @@ defineComponent<CollectionProps, CollectionStore, CollectionActions>(
             .bind("prop:image", () => item.image)
             .bind("class.ring-2", () => props.selected === item.id)
             .bind("class.ring-blue-500", () => props.selected === item.id)
-            .on("click", (el, evt) => {
+            .on("click", (evt) => {
               props.selected = item.id;
             });
         }
@@ -121,7 +121,7 @@ defineComponent<CollectionProps, CollectionStore, CollectionActions>(
       component
         .query("btn-load")
         .bind("disabled", () => store.loading)
-        .on("click", (el, evt) => {
+        .on("click", (evt) => {
           actions.load(store.items.length);
         });
 

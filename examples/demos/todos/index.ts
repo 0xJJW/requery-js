@@ -43,7 +43,7 @@ defineComponent<Props, Store>("rq-todos", {
     component
       .query("toggleBtn")
       // Toggle visibility state on click
-      .on("click", (el, evt) => {
+      .on("click", (evt) => {
         store.isVisible = !store.isVisible;
       })
       // Set button icon based on visibility state
@@ -67,14 +67,14 @@ defineComponent<Props, Store>("rq-todos", {
         addTodoForm
           .query("titleInput")
           .bind("value", () => store.newTodoTitle)
-          .on("input", (el, evt) => {
+          .on("input", (evt) => {
             if (evt.target instanceof HTMLInputElement) {
               store.newTodoTitle = evt.target.value;
             }
           });
 
         // Optional index input for insertion position
-        addTodoForm.query("indexInput").on("input", (el, evt) => {
+        addTodoForm.query("indexInput").on("input", (evt) => {
           if (evt.target instanceof HTMLInputElement) {
             const value = evt.target.value;
             store.newTodoIndex = value ? parseInt(value) : undefined;
@@ -82,7 +82,7 @@ defineComponent<Props, Store>("rq-todos", {
         });
 
         // Handle form submission
-        addTodoForm.on("submit", (el, evt) => {
+        addTodoForm.on("submit", (evt) => {
           evt.preventDefault();
           addTodo(store.newTodoTitle, store.newTodoIndex);
           store.newTodoTitle = "";
@@ -105,7 +105,7 @@ defineComponent<Props, Store>("rq-todos", {
               .bind("class.text-gray-500", () => todo.completed);
 
             // Move up button - reorder todos
-            itemRef.query("toggleMoveUpButton").on("click", (el, evt) => {
+            itemRef.query("toggleMoveUpButton").on("click", (evt) => {
               const index = store.todos.findIndex((t) => t.id === todo.id);
               if (index > 0) {
                 const newArray = [...store.todos];
@@ -119,7 +119,7 @@ defineComponent<Props, Store>("rq-todos", {
             // Toggle completion button with dynamic icon
             itemRef
               .query("toggleCompleteButton")
-              .on("click", (el, evt) => {
+              .on("click", (evt) => {
                 const index = store.todos.findIndex((t) => t.id === todo.id);
                 store.todos[index].completed = !todo.completed;
               })
@@ -130,7 +130,7 @@ defineComponent<Props, Store>("rq-todos", {
               );
 
             // Remove individual todo button
-            itemRef.query("removeTodoButton").on("click", (el, evt) => {
+            itemRef.query("removeTodoButton").on("click", (evt) => {
               store.todos = store.todos.filter((t) => t.id !== todo.id);
             });
           }
@@ -141,13 +141,13 @@ defineComponent<Props, Store>("rq-todos", {
     // Remove all todos button
     component
       .query("removeAllButton")
-      .on("click", (el, evt) => {
+      .on("click", (evt) => {
         store.todos = [];
       })
       .bind("disabled", () => store.todos.length === 0);
 
     // Debug button to log current todos state
-    component.query("logTodoItemsButton").on("click", (el, evt) => {
+    component.query("logTodoItemsButton").on("click", (evt) => {
       console.log("todos", toRaw(store.todos));
     });
 

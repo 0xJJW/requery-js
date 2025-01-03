@@ -5,9 +5,10 @@
     props: {},
     store: {},
     setup(component, props, store) {
-      component
-        .query("button")
-        .on("click", (el, evt) => alert("Button clicked!"));
+      component.query("button").on("click", (evt) => {
+        console.log("Event", evt);
+        alert("Button clicked!");
+      });
     },
   });
 </script>

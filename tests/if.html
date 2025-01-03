@@ -10,10 +10,10 @@
     setup(component, props, store) {
       component
         .query("button-toggle-if")
-        .on("click", (el, evt) => (store.open = !store.open));
+        .on("click", (evt) => (store.open = !store.open));
       component
         .query("button-toggle-elseif")
-        .on("click", (el, evt) => (store.elseOpen = !store.elseOpen));
+        .on("click", (evt) => (store.elseOpen = !store.elseOpen));
 
       component.query("if-text").if(() => store.open);
       component.query("else-text").if(() => !store.elseOpen && !store.open);

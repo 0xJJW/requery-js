@@ -55,7 +55,7 @@
       component
         .query("label")
         .text(() => props.label)
-        .on("click", (el, evt) => {
+        .on("click", (evt) => {
           component.emit("optionSelected", {
             label: props.label,
             value: props.value,
@@ -87,7 +87,7 @@
           }
           return "Select...";
         })
-        .on("click", (el, evt) => (store.isOpen = !store.isOpen));
+        .on("click", (evt) => (store.isOpen = !store.isOpen));
 
       component.query("options").bind("style", () => ({
         display: store.isOpen ? "block" : "none",

@@ -34,7 +34,7 @@ defineComponent<Props, Store>("rq-counter", {
     component
       .query("toggleBtn")
       // Toggle visibility state on click
-      .on("click", (el, evt) => {
+      .on("click", (evt) => {
         store.isVisible = !store.isVisible;
       })
       // Set button icon based on visibility state
@@ -45,7 +45,7 @@ defineComponent<Props, Store>("rq-counter", {
       );
 
     // Reset button - sets counter back to initial value
-    component.query("resetBtn").on("click", (el, evt) => {
+    component.query("resetBtn").on("click", (evt) => {
       store.count = props.initialCount;
     });
 
@@ -57,14 +57,14 @@ defineComponent<Props, Store>("rq-counter", {
         // Disable increment at max value (5)
         el.query("incrementBtn")
           .bind("disabled", () => store.count >= 5)
-          .on("click", (el, evt) => {
+          .on("click", (evt) => {
             store.count += props.step;
           });
 
         // Disable decrement at min value (0)
         el.query("decrementBtn")
           .bind("disabled", () => store.count <= 0)
-          .on("click", (el, evt) => {
+          .on("click", (evt) => {
             store.count -= props.step;
           });
 

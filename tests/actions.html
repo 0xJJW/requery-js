@@ -1,0 +1,53 @@
+<script type="module">
+  import { defineComponent } from "@/main";
+
+  defineComponent('rq-parent', {
+    setup(component, props, store) {
+      component.query('button').on('click', (evt) => {
+        const counter = component.components.get('counter1');
+        counter?.actions.increment();
+      });
+    },
+  });
+
+  defineComponent('rq-counter', {
+    props: {
+      max: 10,
+    },
+    store: {
+      count: 0,
+    },
+    actions: {
+      // Action with no arguments
+      increment(ctx) {
+        if (ctx.store.count < ctx.props.max) {
+          ctx.actions.add(1);
+        }
+      },
+      // Action with arguments
+      add(ctx, amount) {
+        const newCount = ctx.store.count + amount;
+        if (newCount <= ctx.props.max) {
+          ctx.store.count = newCount;
+        }
+      },
+    },
+    setup(component, props, store, actions) {
+      // Bind count value
+      component.query('count').text(() => store.count);
+
+      // Call increment action
+      component.query('increment').on('click', (evt) => {
+        actions.increment();
+      });
+    },
+  });
+</script>
+
+<rq-parent prop:key="parent">
+  <rq-counter prop:key="counter1">
+    <button rq="increment">Internal +</button>
+    <span rq="count">0</span>
+  </rq-counter>
+  <button rq="button">External +</button>
+</rq-parent>

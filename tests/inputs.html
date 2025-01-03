@@ -11,35 +11,29 @@
     },
     setup(component, props, store) {
       component.query("data").text(() => {
-        return {
-          text: store.text,
-          selected: store.selected,
-          checked: store.checked,
-          arr: store.arr,
-          radioSelected: store.radioSelected,
-        };
+        return {...store};
       });
 
       component
         .query("text-input")
         .bind("value", () => store.text)
-        .on("input", (el, evt) => (store.text = evt.target.value));
+        .on("input", (evt) => (store.text = evt.target.value));
 
       component
         .query("text-area")
         .bind("value", () => store.text)
-        .on("input", (el, evt) => (store.text = evt.target.value));
+        .on("input", (evt) => (store.text = evt.target.value));
 
       component
         .query("checkbox")
         .bind("checked", () => store.checked)
-        .on("change", (el, evt) => (store.checked = evt.target.checked));
+        .on("change", (evt) => (store.checked = evt.target.checked));
 
       for (const child of ["check-one", "check-two", "check-three"]) {
         component
           .query(child)
           .bind("checked", (element) => store.arr.includes(element.node.value))
-          .on("change", (el, evt) => {
+          .on("change", (evt) => {
             if (store.arr.some((val) => val == evt.target.value)) {
               store.arr = store.arr.filter((val) => val != evt.target.value);
             } else {
@@ -57,7 +51,7 @@
             "checked",
             (element) => store.radioSelected === element.node.value
           )
-          .on("change", (el, evt) => (store.radioSelected = evt.target.value));
+          .on("change", (evt) => (store.radioSelected = evt.target.value));
       }
 
       component.query("radio-selected").text(() => store.radioSelected);
@@ -65,7 +59,7 @@
       component
         .query("select")
         .bind("selected", () => store.selected)
-        .on("change", (el, evt) => (store.selected = evt.target.value));
+        .on("change", (evt) => (store.selected = evt.target.value));
 
       component.query("option").for(
         () => ["one", "two", "three"],

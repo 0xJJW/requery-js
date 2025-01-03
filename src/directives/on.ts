@@ -1,11 +1,11 @@
 import { getElementContext } from "@/context";
-import { RqElement, RqEventListener } from "@/types";
+import { RqElement, RqElementEvent, RqElementEventHandler } from "@/types";
 import { nodeNotFoundWarning } from "@/utils";
 
 export function _on(
   element: RqElement,
   eventName: string,
-  handler: RqEventListener
+  handler: RqElementEventHandler
 ): RqElement {
   const ctx = getElementContext(element);
 
@@ -24,7 +24,11 @@ export function _on(
   }
 
   // Add new listener
-  const wrappedHandler = ((e: Event) => handler(element, e)) as EventListener;
+  const wrappedHandler = ((e: Event) => {
+    const rqEvent = e as RqElementEvent;
+    rqEvent.element = element;
+    handler(rqEvent);
+  }) as EventListener;
   element.node.addEventListener(eventName, wrappedHandler);
   ctx.eventListeners.set(eventName, wrappedHandler);
   ctx.cleanups.add(() =>

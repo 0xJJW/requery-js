@@ -10,11 +10,11 @@
     setup(component, props, store) {
       component
         .query("toggle-button")
-        .on("click", (el, evt) => (store.isVisible = !store.isVisible));
+        .on("click", (evt) => (store.isVisible = !store.isVisible));
 
       component
         .query("toggle-flex-button")
-        .on("click", (el, evt) => (store.isFlexVisible = !store.isFlexVisible));
+        .on("click", (evt) => (store.isFlexVisible = !store.isFlexVisible));
 
       component.query("default-div").show(() => store.isVisible);
       component.query("flex-div").show(() => store.isFlexVisible);
