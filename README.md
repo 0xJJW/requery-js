@@ -4,7 +4,7 @@ A Web Component framework that works with plain HTML - no JSX, string literals, 
 
 ## Getting started
 
-Please follow the documentation at [help.requery.dev](https://help.requery.dev)!
+Please follow the documentation at [docs.requery.dev](https://docs.requery.dev)!
 
 ## Sponsorship
 
